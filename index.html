@@ -10,10 +10,14 @@
             color: green;
         }
 
+
+
         /*textul linkului care indică site-ul LINK group trebuie colorat cu roşu; */
         a[href*="link-group.eu"] {
             color: red;
         }
+
+
 
         /* paragrafele din cadrul elementului second-div trebuie colorate alternativ cu roşu și albastru (Paragraph 4 să fie roşu, Paragraph 5 să fie albastru, Paragraph 6 din nou roşu...) */
         #second-div p:nth-child(odd) {
@@ -24,6 +28,20 @@
             color: blue;
         }
 
+
+
+        /* la sfârşitul Paragrafului 2 şi Paragrafului 3, folosind CSS, adăugaţi textul – NEW, care va fi galben; */
+        #second-div p:nth-child(2)::after,
+        #second-div p:nth-child(3)::after {
+        content: " NEW";
+        color: yellow;
+        }
+
+        /* trecând mouse-ul peste elementul Paragraph 10, textul său trebuie să devină înclinat/italic. */
+
+        p:last-child:hover {
+        font-style: italic;
+        }
     </style>
 </head>
 
