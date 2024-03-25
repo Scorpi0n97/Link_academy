@@ -23,26 +23,46 @@
             width: 600px; 
             height: 600px; 
             border-radius: 50%; 
-            background-image: conic-gradient(from 0deg, #fb5dad 0%, #55fb9f 120deg, #b97aff 240deg, #fb5dad 360deg);
+            background-image: linear-gradient( #fb5dad, #55fb9f , #b97aff, #fb5dad);
             position: relative;
             display: flex;
             justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 30px rgba(231, 220, 220, 0.8); 
-            overflow: hidden;
-            animation: rotireGradient 3s linear infinite;
+            align-items: center; 
+            animation: rotireGradient 1s linear infinite;
         }
 
-        .circle_black {
-            width: 500px; 
-            height: 500px; 
-            border-radius: 50%; 
-            background-color: #050210;
+        .circle:after {
+            content: '';
             position: absolute;
-            top: 50%; 
-            left: 50%;
-            transform: translate(-50%, -50%);
+            top: 50px;
+            right: 50px;
+            bottom: 50px;
+            left: 50px;
+            background-color: black;
+            border-radius: 50%;
         }
+
+        .circle span{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient( #fb5dad, #55fb9f , #b97aff, #fb5dad);
+            border-radius: 50%;
+        }
+
+        .circle span:nth-child(1){
+            filter: blur(5px);
+        }
+        .circle span:nth-child(2){
+            filter: blur(10px);
+        }
+        .circle span:nth-child(3){
+            filter: blur(20px);
+        }
+        .circle span:nth-child(4){
+            filter: blur(50px);
+        }
+
 
         .circle_pulse {
             width: 50px; 
@@ -68,6 +88,7 @@
             animation-fill-mode: forwards;
 
         }
+        
         
 
 
@@ -95,13 +116,17 @@
                 
             }
         }
+
     </style>
 </head>
 <body>
    
       
         <div class="circle">
-            <div class="circle_black">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
                 <div class="circle_pulse">
                     <span style="--i:0;"></span>
                     <span style="--i:1;"></span>
@@ -110,7 +135,7 @@
                     <span style="--i:4;"></span>
                     <span style="--i:5;"></span>
                 </div>
-            </div>
+            </div> 
         </div> 
    
 
