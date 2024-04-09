@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px; /* Adăugăm o margine la corpul paginii */
+    background-color:#5585b5;
+}
+  
+  .title {
+    text-align: center;
+  }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 20px; /* Ajustăm padding-ul pentru a avea mai mult spațiu lateral în div-ul mare "row" */
+  }
+  
+  .column {
+    flex: calc(20% - 16px); /* Ajustăm dimensiunile box-urilor pentru a avea 5 box-uri pe rând */
+    max-width: calc(20% - 16px); /* Ajustăm dimensiunile box-urilor pentru a avea 5 box-uri pe rând */
+    margin: 8px; /* Adăugăm o margine mai mare între box-uri */
+    position: relative; /* Adăugăm pentru a poziționa zona de descriere a imaginii */
+    border-radius: 5px;
+}
+  
+.gallery {
+   
+    background-color: #aee1ff; /* Culoare de fundal albastru deschis */
+    height: 200px; /* Ajustați înălțimea dorită a thumbnail-ului */
+    position: relative; /* Adăugăm pentru a poziționa zona de descriere a imaginii */
+    border-radius: 10px; /* Rotunjim colțurile casetelor de imagini */
+    overflow: hidden; /* Ascundem conținutul care depășește marginile casetelor */
+    background-image: url('placeholder-image.png');
+    background-size: 250px; /* Dimensiunea fixă */
+    background-position: center top 10%;
+    background-repeat: no-repeat;
+  }
+  
+  .gallery:hover {
+    border: none; /* Elimină border-ul negru la hover */
+  }
+
+/*   .gallery img {
+    display: block;
+    width: 100%;
+    height: auto;
+
+  } */
+  
+  .desc {
+    position: absolute; /* Poziționăm zona de descriere a imaginii în partea de jos */
+    bottom: 0; /* Poziționăm la partea de jos a boxului */
+    left: 0; /* Aliniem la stânga */
+    width: calc(100% - 30px); /* Lățimea 100% a zonei de descriere */
+    height: 15%; /* Înălțimea relativă față de înălțimea box-ului */
+    padding: 15px;
+    text-align: center;
+    color: #000000;
+    background-color: rgb(255, 255, 255);
+    border-bottom-left-radius: 10px; 
+    border-bottom-right-radius: 10px;
+    }
+
+    .paragraph {
+        margin: 20px; /* Margini de 20px deasupra și dedesubtul paragrafului, și auto pentru a îl centra pe orizontală */
+        
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+  @media only screen and (max-width: 1024px) {
+    .column {
+      flex: calc(33.33% - 16px); /* Ajustăm dimensiunile box-urilor pentru a avea 3 box-uri pe rând pe tablete */
+      max-width: calc(33.33% - 16px); /* Ajustăm dimensiunile box-urilor pentru a avea 3 box-uri pe rând pe tablete */
+    }
+
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .column {
+      flex: 50%; /* Ajustăm dimensiunile box-urilor pentru a avea 2 box-uri pe rând pe telefoane */
+      max-width: 50%; /* Ajustăm dimensiunile box-urilor pentru a avea 2 box-uri pe rând pe telefoane */
+    }
+
+  }
+
+
+  
