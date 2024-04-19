@@ -52,9 +52,96 @@
                 </div>
 
                 <input type="submit" value="Login">
+
+                <div id="error-messages"></div>
+                <div id="success-message"></div>
+
             </form>
 
         </div>
 
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                // Selectăm formularul
+                const form = document.querySelector("form");
+        
+                // Ascultăm evenimentul de trimitere a formularului
+                form.addEventListener("submit", function(event) {
+                    event.preventDefault(); // Prevenim comportamentul implicit de trimitere a formularului
+        
+                    // Obținem valorile introduse de utilizator pentru nume de utilizator și parolă
+                    const username = document.getElementById("username").value;
+                    const password = document.getElementById("password").value;
+        
+                    // Verificăm dacă valorile introduse sunt corecte
+                    if (username === "new_user" && password === "123456789") {
+                        // Afisăm mesajul de logare reușită
+                        displaySuccessMessage();
+                    } else {
+                        // Afisăm mesajele de eroare și aplicăm stilurile corespunzătoare
+                        displayErrorMessages(username, password);
+                    }
+                });
+            });
+        
+            function displaySuccessMessage() {
+                // Obținem containerul pentru mesajul de logare reușită
+                const successMessageContainer = document.getElementById("success-message");
+        
+                // Actualizăm conținutul containerului
+                successMessageContainer.textContent = "Successful login!";
+            }
+        
+            function displayErrorMessages(username, password) {
+                // Obținem containerul pentru mesajele de eroare
+                const errorMessagesContainer = document.getElementById("error-messages");
+        
+                // Golim containerul pentru a elimina mesajele de eroare anterioare
+                errorMessagesContainer.innerHTML = "";
+        
+                // Verificăm dacă nu s-a introdus numele de utilizator
+                if (!username) {
+                    const usernameErrorMessage = document.createElement("p");
+                    usernameErrorMessage.textContent = "Please enter username";
+                    errorMessagesContainer.appendChild(usernameErrorMessage);
+                }
+        
+                // Verificăm dacă numele de utilizator este incorect
+                if (username && username !== "new_user") {
+                    const invalidUsernameErrorMessage = document.createElement("p");
+                    invalidUsernameErrorMessage.textContent = "Please enter a valid username";
+                    errorMessagesContainer.appendChild(invalidUsernameErrorMessage);
+                }
+        
+                // Verificăm dacă nu s-a introdus parola
+                if (!password) {
+                    const passwordErrorMessage = document.createElement("p");
+                    passwordErrorMessage.textContent = "Please enter password";
+                    errorMessagesContainer.appendChild(passwordErrorMessage);
+                }
+        
+                // Verificăm dacă parola este incorectă
+                if (password && password !== "123456789") {
+                    const invalidPasswordErrorMessage = document.createElement("p");
+                    invalidPasswordErrorMessage.textContent = "Please enter a valid password";
+                    errorMessagesContainer.appendChild(invalidPasswordErrorMessage);
+                }
+        
+                // Adăugăm stilurile corespunzătoare pentru câmpurile nevalide
+                applyErrorStyles();
+            }
+        
+            function applyErrorStyles() {
+                // Selectăm câmpurile de input
+                const usernameInput = document.getElementById("username");
+                const passwordInput = document.getElementById("password");
+        
+                // Aplicăm stiluri pentru câmpurile nevalide
+                usernameInput.style.borderColor = "red";
+                passwordInput.style.borderColor = "red";
+            }
+        </script>
+        
     </body>
 </html>
