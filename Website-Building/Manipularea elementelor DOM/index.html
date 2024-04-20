@@ -1,147 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Assignment 2 - Website Building</title>
-        <style>
-            body {
-                box-sizing: border-box;
-                font-family: sans-serif;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 2 - Website Building</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
 
-            #login-container {
-                width: 460px;
-                margin: 0 auto;
-            }
+        #login-container {
+            width: 460px;
+            margin: 0 auto;
+        }
 
-            form label,
-            form input {
-                width: 100%;
-                box-sizing: border-box;
-            }
+        form label,
+        form input {
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-            form input {
-                padding: 8px;
-            }
+        form input {
+            padding: 8px;
+        }
 
-            form label {
-                font-weight: bold;
-            }
+        form label {
+            font-weight: bold;
+        }
 
-            form div {
-                margin: 16px 0px;
-            }
-        </style>
-    </head>
+        form div {
+            margin: 16px 0px;
+            position: relative;
+        }
 
-    <body>
+        .error-icon,
+        .success-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+        }
 
-        <div id="login-container">
+        .error-icon.show,
+        .success-icon.show {
+            display: inline-block;
+        }
 
-            <form>
-                <div>
-                    <label for="username">Username:</label>
-                    <input id="username" type="text">
-                </div>
+        .error-icon::before {
+            content: "✗";
+            color: red;
+        }
 
-                <div>
-                    <label for="password">Password:</label>
-                    <input id="password" type="password">
-                </div>
+        .success-icon::before {
+            content: "✓";
+            color: green;
+        }
 
-                <input type="submit" value="Login">
+        .error-message {
+            color: red;
+        }
 
-                <div id="error-messages"></div>
-                <div id="success-message"></div>
+        .success-message {
+            color: green;
+        }
+    </style>
+</head>
 
-            </form>
+<body>
 
-        </div>
+    <div id="login-container">
+
+        <form>
+            <div class="input-container">
+                <label for="username">Username: </label>
+                <input id="username" type="text">
+                <span id="username-success" class="success-icon"></span>
+                <span id="username-error" class="error-icon"></span>
+            </div>
+
+            <div class="input-container">
+                <label for="password">Password:</label>
+                <input id="password" type="password">
+                <span id="password-success" class="success-icon"></span>
+                <span id="password-error" class="error-icon"></span>
+            </div>
+
+            <input type="submit" value="Login">
+
+            <div id="error-messages"></div>
+            <div id="success-message"></div>
+
+        </form>
+
+    </div>
 
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                // Selectăm formularul
-                const form = document.querySelector("form");
-        
-                // Ascultăm evenimentul de trimitere a formularului
-                form.addEventListener("submit", function(event) {
-                    event.preventDefault(); // Prevenim comportamentul implicit de trimitere a formularului
-        
-                    // Obținem valorile introduse de utilizator pentru nume de utilizator și parolă
-                    const username = document.getElementById("username").value;
-                    const password = document.getElementById("password").value;
-        
-                    // Verificăm dacă valorile introduse sunt corecte
-                    if (username === "new_user" && password === "123456789") {
-                        // Afisăm mesajul de logare reușită
-                        displaySuccessMessage();
-                    } else {
-                        // Afisăm mesajele de eroare și aplicăm stilurile corespunzătoare
-                        displayErrorMessages(username, password);
-                    }
-                });
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector("form");
+
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                const username = document.getElementById("username").value;
+                const password = document.getElementById("password").value;
+
+                if (username === "new_user" && password === "123456789") {
+                    displaySuccessMessage();
+                } else {
+                    displayErrorMessages(username, password);
+                }
             });
-        
-            function displaySuccessMessage() {
-                // Obținem containerul pentru mesajul de logare reușită
-                const successMessageContainer = document.getElementById("success-message");
-        
-                // Actualizăm conținutul containerului
-                successMessageContainer.textContent = "Successful login!";
+        });
+
+        function displaySuccessMessage() {
+            const successMessageContainer = document.getElementById("success-message");
+
+            successMessageContainer.textContent = "Successful login!";
+        }
+
+        function displayErrorMessages(username, password) {
+            const errorMessagesContainer = document.getElementById("error-messages");
+            errorMessagesContainer.innerHTML = "";
+
+            if (!username) {
+                appendErrorMessage("Please enter username", errorMessagesContainer, "username");
             }
-        
-            function displayErrorMessages(username, password) {
-                // Obținem containerul pentru mesajele de eroare
-                const errorMessagesContainer = document.getElementById("error-messages");
-        
-                // Golim containerul pentru a elimina mesajele de eroare anterioare
-                errorMessagesContainer.innerHTML = "";
-        
-                // Verificăm dacă nu s-a introdus numele de utilizator
-                if (!username) {
-                    const usernameErrorMessage = document.createElement("p");
-                    usernameErrorMessage.textContent = "Please enter username";
-                    errorMessagesContainer.appendChild(usernameErrorMessage);
-                }
-        
-                // Verificăm dacă numele de utilizator este incorect
-                if (username && username !== "new_user") {
-                    const invalidUsernameErrorMessage = document.createElement("p");
-                    invalidUsernameErrorMessage.textContent = "Please enter a valid username";
-                    errorMessagesContainer.appendChild(invalidUsernameErrorMessage);
-                }
-        
-                // Verificăm dacă nu s-a introdus parola
-                if (!password) {
-                    const passwordErrorMessage = document.createElement("p");
-                    passwordErrorMessage.textContent = "Please enter password";
-                    errorMessagesContainer.appendChild(passwordErrorMessage);
-                }
-        
-                // Verificăm dacă parola este incorectă
-                if (password && password !== "123456789") {
-                    const invalidPasswordErrorMessage = document.createElement("p");
-                    invalidPasswordErrorMessage.textContent = "Please enter a valid password";
-                    errorMessagesContainer.appendChild(invalidPasswordErrorMessage);
-                }
-        
-                // Adăugăm stilurile corespunzătoare pentru câmpurile nevalide
-                applyErrorStyles();
+
+            if (username && username !== "new_user") {
+                appendErrorMessage("Please enter a valid username", errorMessagesContainer, "username");
             }
-        
-            function applyErrorStyles() {
-                // Selectăm câmpurile de input
-                const usernameInput = document.getElementById("username");
-                const passwordInput = document.getElementById("password");
-        
-                // Aplicăm stiluri pentru câmpurile nevalide
-                usernameInput.style.borderColor = "red";
-                passwordInput.style.borderColor = "red";
+
+            if (!password) {
+                appendErrorMessage("Please enter password", errorMessagesContainer, "password");
             }
-        </script>
-        
-    </body>
+
+            if (password && password !== "123456789") {
+                appendErrorMessage("Please enter a valid password", errorMessagesContainer, "password");
+            }
+
+            errorStyles();
+        }
+
+
+        function errorStyles() {
+            const usernameInput = document.getElementById("username");
+            const passwordInput = document.getElementById("password");
+
+            usernameInput.classList.toggle("error", !usernameInput.value || usernameInput.value !== "new_user");
+            passwordInput.classList.toggle("error", !passwordInput.value || passwordInput.value !== "123456789");
+
+            toggleIcons("username", !usernameInput.value || usernameInput.value !== "new_user");
+            toggleIcons("password", !passwordInput.value || passwordInput.value !== "123456789");
+        }
+
+        function toggleIcons(fieldName, showError) {
+            const errorIcon = document.getElementById(`${fieldName}-error`);
+            const successIcon = document.getElementById(`${fieldName}-success`);
+
+            if (showError) {
+                errorIcon.classList.add("show");
+                successIcon.classList.remove("show");
+            } else {
+                errorIcon.classList.remove("show");
+                successIcon.classList.add("show");
+            }
+        }
+
+        function appendErrorMessage(message, container, fieldId) {
+            const errorMessage = document.createElement("div");
+            errorMessage.classList.add("error-message");
+            errorMessage.textContent = message;
+
+            container.appendChild(errorMessage);
+        }
+    </script>
+    <!-- Scriptul pentur font awesome -->
+    <script src="https://kit.fontawesome.com/ab730940a1.js" crossorigin="anonymous"></script>
+</body>
+
 </html>
